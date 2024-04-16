@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('');
+            background-image: url('https://images.unsplash.com/photo-1528459801416-a9e53bbf4e17?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            position: relative; /* Needed for absolute positioning of pseudo-element */
+        }
+
+      
+        h1, h2 {
+            color: #D20062;
+            text-align: center;
+            position: relative; /* Ensure the text stays above the semi-transparent layer */
+            z-index: 2; /* Ensure the text stays above the semi-transparent layer */
+        }
+
+        form {
+            margin-top: 160px;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            height: 190px;
+            background-color: #34b0c0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Ensure the form stays above the semi-transparent layer */
+            z-index: 2; /* Ensure the form stays above the semi-transparent layer */
+        }
+
+        input[type="file"] {
+            display: block;
+            margin: 10px auto;
+        }
+
+        button[type="submit"] {
+            background-color: #d14695;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #D20062;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        li {
+            color: #D20062;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;color: #D20062;margin-top: 80px;font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Image Recognition System</h1>
+    <form action="{{ url_for('home') }}" method="POST" enctype="multipart/form-data">
+        <p style="color: #D20062;">Select image</p>
+        <input type="file" name="image" accept="image/*">
+        <br><br>
+        <button type="submit">Upload</button>
+    </form>
+    
+    {% if predictions %}
+    <h2 style="text-align: center;color: #D20062;">Predictions:</h2>
+    <ul>
+        {% for label, score in predictions %}
+            <li>{{ label }}: {{ score }}%</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+</html>
